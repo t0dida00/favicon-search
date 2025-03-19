@@ -15,7 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Faviconer",
   description: "Search favicons from any website instantly",
-  icons: "/favicon.png", // Hoặc "/favicon.png"
+  icons: {
+    icon: "/favicon.png",  // Cập nhật đúng cú pháp
+  },
 };
 
 export default function RootLayout({
