@@ -1,6 +1,4 @@
-import Image from "next/image";
 import NavBar from "./components/navBar";
-import { Button } from "@/components/ui/button";
 import FaviconForm from "./components/Form";
 import { MarqueeDemo } from "./components/marQuee";
 import Link from "next/link";
@@ -89,7 +87,7 @@ export default function Home() {
                       </div>
                       <h3 className="text-xl font-semibold"> Simple and Easy to Use</h3>
                       <p className="text-muted-foreground">
-                        Just paste the website link, hit "GET," and download your favicon in seconds.
+                        Just paste the website link, hit &quot;GET&quot; and download your favicon in seconds.
                       </p>
                     </div>
                   </div>

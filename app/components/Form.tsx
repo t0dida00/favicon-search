@@ -24,7 +24,7 @@ export default function FaviconForm() {
         if (!userInput) {
             return;
         }
-        let formattedData = userInput.split(";").map((item) => item.trim());
+        const formattedData = userInput.split(";").map((item) => item.trim());
         setLoading(true);  // Bật chế độ loading khi gọi API
         try {
             // Giả sử đây là URL API của bạn

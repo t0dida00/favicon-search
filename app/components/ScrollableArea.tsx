@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: string; url: string, favicon: string, error?: string }> | null }) {
@@ -23,7 +24,7 @@ export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: str
                 {faviconData?.map((icon, index) => (
                     <div key={index} >
                         <div className="text-sm overflow-hidden flex items-center justify-between">
-                            <img src={icon.favicon} alt={icon.name || "Favicon"} className="h-12 w-12" />
+                            <Image src={icon.favicon} alt={icon.name || "Favicon"} className="h-12 w-12" />
                             <span className=" whitespace-nowrap overflow-ellipsis overflow-hidden hidden sm:block ">{icon.name || icon?.error}</span>
                             {icon.favicon ?
                                 <div className="flex gap-2 items-center">

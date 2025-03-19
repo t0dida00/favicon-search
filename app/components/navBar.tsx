@@ -7,13 +7,13 @@ const NavBar: React.FC = () => {
             <div className="flex h-12 justify-center border-b border-b-foreground/10 bg-background px-5">
                 <div className="container flex w-full items-center justify-between py-3 text-sm">
                     <div className="flex items-center gap-5">
-                        <a className="flex items-center gap-2" href="/">
+                        <Link className="flex items-center gap-2" href="/">
 
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-7 lg:h-8" viewBox="0 0 32 32" fill='#2E7D32'><g data-name="40-Search">
                                 <rect x="0" y="0" width="32" height="32" fill="#E6F4EA" rx="4" ry="4" />
                                 <path d="M25 0H7a7 7 0 0 0-7 7v18a7 7 0 0 0 7 7h18a7 7 0 0 0 7-7V7a7 7 0 0 0-7-7zm5 25a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5h18a5 5 0 0 1 5 5z" /><path d="M20 13a7 7 0 1 0-2.82 5.6l7.11 7.11 1.41-1.41-7.1-7.12A7 7 0 0 0 20 13zm-7 5a5 5 0 1 1 5-5 5 5 0 0 1-5 5z" /></g></svg>
                             <span className="text-lg font-semibold lg:text-xl">Faviconer</span>
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="hidden gap-6 md:flex">
