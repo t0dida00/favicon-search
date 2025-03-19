@@ -13,21 +13,38 @@ interface FaviconData {
     favicon: string;
     error?: string;
 }
-
+const isValidURL = (url: string) => {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+};
 export default function FaviconForm() {
 
     const [faviconData, setFaviconData] = useState<FaviconData[] | null>(null);
     const [loading, setLoading] = useState(false);
     const [userInput, setUserInput] = useState<string>("");
+    const [error, setError] = useState("");
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setUserInput(value);
+
+        if (value && !isValidURL(value)) {
+            setError("Invalid URL");
+        } else {
+            setError("");
+        }
+    };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!userInput) {
             return;
         }
         const formattedData = userInput.split(";").map((item) => item.trim());
-        setLoading(true);  // Bật chế độ loading khi gọi API
+        setLoading(true);
         try {
-            // Giả sử đây là URL API của bạn
             const response = await fetch('https://faviconer.vercel.app/favicons', {
                 method: 'POST',
                 headers: {
@@ -40,17 +57,18 @@ export default function FaviconForm() {
 
             const data = await response.json();
             if (data.favicons && data.favicons.length > 0) {
-                setFaviconData(data.favicons); // Lưu dữ liệu favicon đầu tiên
+                setFaviconData(data.favicons);
             }
         } catch (error) {
             console.error('Error fetching favicon:', error);
         } finally {
-            setLoading(false); // Tắt chế độ loading
+            setLoading(false);
         }
 
     };
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        setUserInput("")
         setLoading(true);
         if (file && file.type === "text/plain") {
             const formData = new FormData();
@@ -81,18 +99,23 @@ export default function FaviconForm() {
     };
     return (
         <form onSubmit={onSubmit}>
-            <div className="relative flex w-full items-center space-x-2 pt-5 flex-col md:flex-row gap-2">
-                <input
-                    type="text"
-                    value={userInput}
-                    onChange={(e) => setUserInput(e.target.value)}
-                    placeholder="Insert the URL which you want to fetch favicon"
-                    className="flex w-full h-12 rounded-md border-2 border-[#22c55e] bg-background px-3 py-2 text-base 
+            <div className="relative flex w-full items-start space-x-2 pt-5 flex-col md:flex-row gap-2 ">
+                <div className="flex flex-col items-center md:items-start w-full">
+                    <input
+                        type="text"
+                        value={userInput}
+                        style={error ? { borderColor: "red" } : {}}
+                        onChange={handleChange}
+                        placeholder="Insert the URL which you want to fetch favicon"
+                        className="flex w-full h-12 rounded-md border-2 border-[#22c55e] bg-background px-3 py-2 text-base 
                     placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:outline-none 
                     focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed 
                     disabled:opacity-50 ring-offset-background file:border-0 file:bg-transparent 
                     file:text-sm file:font-medium m-0"
-                />
+                    />
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
+                </div>
+
                 {loading ?
                     <div className="flex w-full md:w-fit gap-2 mt-2 md:mt-0 items-center justify-center">
                         <Button disabled className="w-fit h-12 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300">
