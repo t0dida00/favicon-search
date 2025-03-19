@@ -28,7 +28,7 @@ export default function FaviconForm() {
         setLoading(true);  // Bật chế độ loading khi gọi API
         try {
             // Giả sử đây là URL API của bạn
-            const response = await fetch('http://13.60.251.37:3000/favicons', {
+            const response = await fetch('https://faviconer.vercel.app/favicons', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export default function FaviconForm() {
 
             try {
                 // Send the file to the backend
-                const response = await fetch("http://13.60.251.37:3000/upload", {
+                const response = await fetch("https://faviconer.vercel.app/upload", {
                     method: "POST",
                     body: formData,
                 });
