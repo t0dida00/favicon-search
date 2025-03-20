@@ -1,10 +1,9 @@
 import * as React from "react"
-
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
+import { toast } from "sonner";
 
 
 export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: string; url: string, favicon: string, error?: string }> | null }) {
@@ -12,12 +11,16 @@ export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: str
     const handleCopy = (url: string) => {
         navigator.clipboard.writeText(url)
             .then(() => {
-                alert("Link copied to clipboard!");
+                toast("Link copied", {
+                    description: "Sunday, December 03, 2023 at 9:00 AM",
+
+                })
             })
             .catch((err) => {
                 console.error("Error copying text: ", err);
             });
     };
+    console.log("Component Rendered");
     return (
         <ScrollArea className=" mt-10 max-h-[500px] w-full overflow-y-auto rounded-md border">
             <div className="p-4">
@@ -30,6 +33,7 @@ export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: str
                             {icon.favicon ?
                                 <div className="flex gap-2 items-center">
                                     <Button
+                                        type="button"
                                         className="w-fit h-8 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300"
                                         asChild
                                     >
@@ -37,10 +41,10 @@ export function ScrollableArea({ faviconData }: { faviconData: Array<{ name: str
                                             Open
                                         </Link>
                                     </Button>
-                                    <Button variant="secondary" className="hover:opacity-80 transition duration-300 cursor-pointer" onClick={() => handleCopy(icon.favicon)}>
+                                    <Button type="button" variant="secondary" className="hover:opacity-80 transition duration-300 cursor-pointer" onClick={() => handleCopy(icon.favicon)}>
                                         Copy
                                     </Button>
-                                </div> : <Button className="block whitespace-nowrap overflow-ellipsis overflow-hidden  bg-red-500">{icon.error}</Button>
+                                </div> : <Button type="button" className="block whitespace-nowrap overflow-ellipsis overflow-hidden  bg-red-500">{icon.error}</Button>
                             }
 
 

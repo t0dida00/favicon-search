@@ -1,7 +1,10 @@
+'use client'
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 const NavBar: React.FC = () => {
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
     return (
         <nav className="sticky top-0 z-10 w-full">
             <div className="flex h-12 justify-center border-b border-b-foreground/10 bg-background px-5">
@@ -31,7 +34,7 @@ const NavBar: React.FC = () => {
 
                     </div>
 
-                    <div className="block md:hidden">
+                    <div className="block md:hidden" onClick={() => setSidebarOpen(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-menu">
                             <line x1="4" x2="20" y1="12" y2="12"></line>
                             <line x1="4" x2="20" y1="6" y2="6"></line>
@@ -41,6 +44,26 @@ const NavBar: React.FC = () => {
                 </div>
             </div>
 
+            <div
+                className={`fixed inset-0 z-20 transition-all duration-300 ${isSidebarOpen ? "bg-black/50" : "pointer-events-none opacity-0"}`}
+                onClick={() => setSidebarOpen(false)}
+            ></div>
+
+            <aside className={`fixed right-0 top-0 z-30 h-full w-64 bg-white shadow-lg transform ${isSidebarOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300`}>
+                <div className="flex items-center justify-between p-4 border-b">
+                    <span className="text-lg font-semibold">Menu</span>
+                    <button onClick={() => setSidebarOpen(false)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x">
+                            <line x1="18" x2="6" y1="6" y2="18"></line>
+                            <line x1="6" x2="18" y1="6" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <nav className="flex flex-col p-4">
+                    <Link href="/" className="p-2 rounded hover:bg-gray-100">Home</Link>
+                    <Link href="/#benefits" className="p-2 rounded hover:bg-gray-100">About</Link>
+                </nav>
+            </aside>
         </nav>
     );
 };

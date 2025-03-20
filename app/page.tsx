@@ -2,6 +2,8 @@ import NavBar from "./components/navBar";
 import FaviconForm from "./components/Form";
 import { MarqueeDemo } from "./components/marQuee";
 import Link from "next/link";
+import { SparklesTextComponent } from "./components/SparklesText";
+import Download from "./components/Download";
 
 export default function Home() {
 
@@ -20,13 +22,15 @@ export default function Home() {
                   Effortlessly retrieve website favicons in various sizes and formats for your projects.
                 </p>
                 <div>
+
                   <FaviconForm />
 
                 </div>
 
-
               </div>
             </div>
+
+
             <section id="benefits" className="container pt-16 md:w-full md:pt-24 px-5">
               <div className="space-y-12">
                 <div className="space-y-4 text-center">

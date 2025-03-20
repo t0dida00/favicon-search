@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ScrollableArea } from "./ScrollableArea";
 import { Loader2 } from "lucide-react";
+import { BorderBeam } from "@/components/magicui/border-beam";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import Download from "./Download";
 
 interface FaviconData {
     name: string;
@@ -39,9 +42,11 @@ export default function FaviconForm() {
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!userInput) {
+        if (!userInput || userInput.trim() === "") {
+            setError("Please enter a URL");
             return;
         }
+
         const formattedData = userInput.split(";").map((item) => item.trim());
         setLoading(true);
         try {
@@ -121,16 +126,26 @@ export default function FaviconForm() {
                         <Button disabled className="w-fit h-12 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300">
                             <Loader2 className="animate-spin" />
                             Processing...
+
                         </Button>
                     </div> :
                     <div className="flex w-full md:w-fit gap-2 mt-2 md:mt-0">
-                        <Button type="submit" className="w-1/2 md:w-24 h-12 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300">
-                            Get favicon
+                        <Button type="submit" className="w-1/2 md:w-24 h-12 p-[2px]  bg-[#22c55e] hover:bg-[#22c55e] hover:opacity-80 transition duration-300 cursor-pointer">
+                            <div className=" relative overflow-hidden h-full w-full rounded-md cursor-pointer" >
+                                <div className=" bg-[#22c55e] hover:bg-[#22c55e] hover:opacity-80 transition duration-300 cursor-pointer w-full h-full flex items-center justify-center ">
+                                    Get favicon
+                                </div>
+                                <BorderBeam size={50} className="from-transparent via-white" />
+                            </div>
                         </Button>
+                        <Label htmlFor="picture" className="relative overflow-hidden w-1/2 md:w-35 h-12 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300 p-[2px] rounded-md text-[#fff] text-sm font-medium flex items-center justify-center"  >
 
-                        <Label htmlFor="picture" className="w-1/2 md:w-35 h-12 bg-[#22c55e] cursor-pointer hover:bg-[#22c55e] hover:opacity-80 transition duration-300 px-4 py-2 rounded-md text-[#fff] text-sm font-medium flex items-center justify-center"  >
-                            Upload a file
-
+                            <div className=" relative overflow-hidden h-full w-full rounded-md cursor-pointer" >
+                                <div className=" bg-[#22c55e] hover:bg-[#22c55e] hover:opacity-80 transition duration-300 cursor-pointer w-full h-full flex items-center justify-center ">
+                                    Upload a file
+                                </div>
+                                <BorderBeam size={70} className="from-transparent via-white" />
+                            </div>
                         </Label>
                         <Input id="picture" type="file" onChange={handleFileChange} disabled={loading} className="hidden" />
                     </div>
@@ -138,7 +153,14 @@ export default function FaviconForm() {
                 }
 
             </div>
-            {!loading && <ScrollableArea faviconData={faviconData} />}
+            {faviconData && !loading &&
+                <>
+                    <section id="download" className="container  md:w-full px-5 flex items-center justify-center pt-8">
+                        <Download />
+                    </section>
+                    <ScrollableArea faviconData={faviconData} />
+                </>}
+
 
         </form>
     );
