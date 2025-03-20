@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { SparklesTextComponent } from './SparklesText';
-import { PulsatingButton } from '@/components/magicui/pulsating-button';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 
 const Download: React.FC = () => {

@@ -2,8 +2,6 @@ import NavBar from "./components/navBar";
 import FaviconForm from "./components/Form";
 import { MarqueeDemo } from "./components/marQuee";
 import Link from "next/link";
-import { SparklesTextComponent } from "./components/SparklesText";
-import Download from "./components/Download";
 
 export default function Home() {
 

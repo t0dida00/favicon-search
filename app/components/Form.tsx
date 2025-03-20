@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { ScrollableArea } from "./ScrollableArea";
 import { Loader2 } from "lucide-react";
 import { BorderBeam } from "@/components/magicui/border-beam";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import Download from "./Download";
 
 interface FaviconData {
