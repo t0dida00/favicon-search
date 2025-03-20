@@ -6,7 +6,7 @@ const NavBar: React.FC = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <nav className="sticky top-0 z-10 w-full">
+        <nav className="sticky top-0 z-20 w-full">
             <div className="flex h-12 justify-center border-b border-b-foreground/10 bg-background px-5">
                 <div className="container flex w-full items-center justify-between py-3 text-sm">
                     <div className="flex items-center gap-5">

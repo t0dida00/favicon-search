@@ -10,7 +10,7 @@ export default function Home() {
       <main className="flex min-h-screen w-full flex-col items-center">
         <div className="flex w-full flex-1 flex-col items-center gap-10 md:gap-20">
           <NavBar />
-          <div className="flex flex-col gap-10 md:gap-20">
+          <div className="flex flex-col gap-10 md:gap-20 z-10">
             <div className="container flex flex-col items-center gap-16 px-5" id="hero">
               <div className="mx-auto space-y-6 lg:max-w-3xl">
                 <h1 className="mx-auto text-center text-3xl md:text-5xl font-[600]">
