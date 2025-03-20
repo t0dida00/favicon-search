@@ -41,6 +41,7 @@ export default function FaviconForm() {
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (error) return null
         if (!userInput || userInput.trim() === "") {
             setError("Please enter a URL");
             return;
