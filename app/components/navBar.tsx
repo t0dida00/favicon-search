@@ -28,7 +28,9 @@ const NavBar: React.FC = () => {
                             <Link href="/#benefits" className="group inline-flex h-8 w-max items-center justify-center rounded-sm bg-background px-2.5 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
                                 About
                             </Link>
-
+                            <Link href="/#stats" className="group inline-flex h-8 w-max items-center justify-center rounded-sm bg-background px-2.5 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                                Stats
+                            </Link>
                         </div>
 
 
@@ -62,6 +64,7 @@ const NavBar: React.FC = () => {
                 <nav className="flex flex-col p-4">
                     <Link href="/" className="p-2 rounded hover:bg-gray-100">Home</Link>
                     <Link href="/#benefits" className="p-2 rounded hover:bg-gray-100">About</Link>
+                    <Link href="/#stats" className="p-2 rounded hover:bg-gray-100">Stats</Link>
                 </nav>
             </aside>
         </nav>

@@ -69,64 +69,13 @@ export default function FaviconForm() {
             setError("Please enter a URL");
             return;
         }
-
         const formattedData = userInput.split(";").map((item) => item.trim());
-        // setLoading(true);
-        // try {
-        //     const response = await fetch('https://faviconer.vercel.app/favicons', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             urls: formattedData,
-        //         }),
-        //     });
-
-        //     const data = await response.json();
-        //     if (data.favicons && data.favicons.length > 0) {
-        //         setFaviconData(data.favicons);
-        //     }
-        // } catch (error) {
-        //     console.error('Error fetching favicon:', error);
-        // } finally {
-        //     setLoading(false);
-        // }
         fetchFavicons(formattedData);
     };
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setUserInput("")
-        // setLoading(true);
-        // if (file && file.type === "text/plain") {
-        //     const formData = new FormData();
-        //     formData.append("file", file);
-
-        //     try {
-        //         // Send the file to the backend
-        //         const response = await fetch("https://faviconer.vercel.app/upload", {
-        //             method: "POST",
-        //             body: formData,
-        //         });
-
-        //         if (!response.ok) {
-        //             setError("Failed to upload the file");
-        //             throw new Error("Failed to upload the file");
-        //         }
-        //         const data = await response.json();
-        //         // Store the favicons in state
-        //         setFaviconData(data.favicons);
-        //         setError("");
-        //     } catch (error) {
-        //         setError("Error uploading file");
-        //         console.error("Error uploading file:", error);
-
-
-        //     }
-        // } else {
-        //     alert("Please upload a .txt file");
-        // }
-        // setLoading(false);
+            ;
         if (file && file.type === "text/plain") {
             uploadFile(file);
         } else {

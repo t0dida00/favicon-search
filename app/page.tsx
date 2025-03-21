@@ -2,6 +2,7 @@ import NavBar from "./components/navBar";
 import FaviconForm from "./components/Form";
 import { MarqueeDemo } from "./components/marQuee";
 import Link from "next/link";
+import StatsPanel from "./components/Stats";
 
 export default function Home() {
 
@@ -96,7 +97,19 @@ export default function Home() {
                 </div>
               </div>
             </section>
-            <section id="marquee" className="container sm:container mx-auto w-screen px-5 pt-16 md:w-full md:pt-24">
+            <section id="stats">
+              <div className="space-y-12">
+                <div className="space-y-4 text-center">
+                  <p className="text-sm font-medium uppercase tracking-wider text-neon">Stats</p>
+                  <h2 className="text-3xl font-semibold tracking-tight md:text-4.5xl">
+                    Over 100 users have fetched 120+ favicons!
+                  </h2>
+                </div>
+                <StatsPanel />
+              </div>
+            </section>
+
+            <section id="marquee" className="container sm:container mx-auto w-screen px-5 pt-16 md:w-full ">
 
               <div className="space-y-12">
                 <div className="space-y-4 text-center">
