@@ -55,10 +55,6 @@ Make sure you have Node.js and npm installed on your system before running the a
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-[Add your license here]
-
 ---
 
 Built with ❤️ by [Your Name/Organization]
