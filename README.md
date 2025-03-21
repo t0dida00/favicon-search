@@ -38,7 +38,7 @@ A modern web application that allows you to easily fetch favicons from websites.
 
 ```bash
 # Clone the repository
-git clone [repository-url]
+git clone https://github.com/t0dida00/favicon-search.git
 
 # Install dependencies
 npm install
