@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { ScrollableArea } from "./ScrollableArea";
 import { Loader2 } from "lucide-react";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import Download from "./Download";
+import useFaviconFetcher from "../hooks/useFaviconFetcher";
 
 interface FaviconData {
     name: string;
@@ -26,9 +27,10 @@ const isValidURL = (url: string) => {
 export default function FaviconForm() {
 
     const [faviconData, setFaviconData] = useState<FaviconData[] | null>(null);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [userInput, setUserInput] = useState<string>("");
-    const [error, setError] = useState("");
+    // const [error, setError] = useState("");
+    const { data, loading, error, fetchFavicons, uploadFile, downloadCsv, setError } = useFaviconFetcher();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setUserInput(value);
@@ -39,6 +41,34 @@ export default function FaviconForm() {
             setError("");
         }
     };
+    const onDownload = useCallback(async () => {
+        try {
+            const response = await fetch('https://faviconer.vercel.app/download-csv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ favicons: data })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'favicons.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Download failed:', error);
+        }
+    }, [data]);
+
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (error) return null
@@ -48,59 +78,67 @@ export default function FaviconForm() {
         }
 
         const formattedData = userInput.split(";").map((item) => item.trim());
-        setLoading(true);
-        try {
-            const response = await fetch('https://faviconer.vercel.app/favicons', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    urls: formattedData,
-                }),
-            });
+        // setLoading(true);
+        // try {
+        //     const response = await fetch('https://faviconer.vercel.app/favicons', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             urls: formattedData,
+        //         }),
+        //     });
 
-            const data = await response.json();
-            if (data.favicons && data.favicons.length > 0) {
-                setFaviconData(data.favicons);
-            }
-        } catch (error) {
-            console.error('Error fetching favicon:', error);
-        } finally {
-            setLoading(false);
-        }
-
+        //     const data = await response.json();
+        //     if (data.favicons && data.favicons.length > 0) {
+        //         setFaviconData(data.favicons);
+        //     }
+        // } catch (error) {
+        //     console.error('Error fetching favicon:', error);
+        // } finally {
+        //     setLoading(false);
+        // }
+        fetchFavicons(formattedData);
     };
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         setUserInput("")
-        setLoading(true);
+        // setLoading(true);
+        // if (file && file.type === "text/plain") {
+        //     const formData = new FormData();
+        //     formData.append("file", file);
+
+        //     try {
+        //         // Send the file to the backend
+        //         const response = await fetch("https://faviconer.vercel.app/upload", {
+        //             method: "POST",
+        //             body: formData,
+        //         });
+
+        //         if (!response.ok) {
+        //             setError("Failed to upload the file");
+        //             throw new Error("Failed to upload the file");
+        //         }
+        //         const data = await response.json();
+        //         // Store the favicons in state
+        //         setFaviconData(data.favicons);
+        //         setError("");
+        //     } catch (error) {
+        //         setError("Error uploading file");
+        //         console.error("Error uploading file:", error);
+
+
+        //     }
+        // } else {
+        //     alert("Please upload a .txt file");
+        // }
+        // setLoading(false);
         if (file && file.type === "text/plain") {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            try {
-                // Send the file to the backend
-                const response = await fetch("https://faviconer.vercel.app/upload", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to upload the file");
-                }
-                const data = await response.json();
-                // Store the favicons in state
-                setFaviconData(data.favicons);
-            } catch (error) {
-                console.error("Error uploading file:", error);
-
-
-            }
+            uploadFile(file);
         } else {
             alert("Please upload a .txt file");
         }
-        setLoading(false);
     };
     return (
         <form onSubmit={onSubmit}>
@@ -153,12 +191,12 @@ export default function FaviconForm() {
                 }
 
             </div>
-            {faviconData && !loading &&
+            {data && !loading &&
                 <>
                     <section id="download" className="container  md:w-full px-5 flex items-center justify-center pt-8">
-                        <Download />
+                        <Download onDownload={onDownload} />
                     </section>
-                    <ScrollableArea faviconData={faviconData} />
+                    <ScrollableArea faviconData={data} />
                 </>}
 
 
