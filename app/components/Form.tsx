@@ -10,12 +10,7 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 import Download from "./Download";
 import useFaviconFetcher from "../hooks/useFaviconFetcher";
 
-interface FaviconData {
-    name: string;
-    url: string;
-    favicon: string;
-    error?: string;
-}
+
 const isValidURL = (url: string) => {
     try {
         new URL(url);
@@ -25,12 +20,10 @@ const isValidURL = (url: string) => {
     }
 };
 export default function FaviconForm() {
-
-    const [faviconData, setFaviconData] = useState<FaviconData[] | null>(null);
     // const [loading, setLoading] = useState(false);
     const [userInput, setUserInput] = useState<string>("");
     // const [error, setError] = useState("");
-    const { data, loading, error, fetchFavicons, uploadFile, downloadCsv, setError } = useFaviconFetcher();
+    const { data, loading, error, fetchFavicons, uploadFile, setError } = useFaviconFetcher();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setUserInput(value);
